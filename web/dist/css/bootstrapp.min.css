@@ -1,0 +1,35 @@
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *//*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+
+
+
+.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,
+.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,
+.col-xs-8,.col-xs-9{float:left}
+.col-xs-12{width:100%}.col-xs-11{width:91.66666667%}
+.col-xs-10{width:83.33333333%}
+.col-xs-9{width:75%}
+.col-xs-8{width:66.66666667%}
+.col-xs-7{width:58.33333333%}
+.col-xs-6{width:50%}
+.col-xs-5{width:41.66666667%}
+.col-xs-4{width:33.33333333%}
+.col-xs-3{width:25%}
+.col-xs-2{width:16.66666667%}
+.col-xs-1{width:8.33333333%}
+.col-xs-pull-12{right:100%}
+.col-xs-pull-11{right:91.66666667%}
+.col-xs-pull-10{right:83.33333333%}
+.col-xs-pull-9{right:75%}
+.panel{margin-bottom:20px;
+      background-color:#fff;
+      border:1px solid transparent;
+      border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+      box-shadow:0 1px 1px rgba(0,0,0,.05)}
+.panel-body{
+    padding:15px}
+.panel>.panel-collapse>.table,.panel>.table,.panel>.table-responsive>.table{margin-bottom:0}

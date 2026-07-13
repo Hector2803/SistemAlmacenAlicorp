@@ -1,0 +1,53 @@
+
+.table-responsive {
+    min-height: .01%;
+    overflow-x: auto;
+}
+.table-responsive {
+    width: 100%;
+    overflow-x: scroll;
+    position: relative;
+}
+
+/* estado descactivado */
+markdesactivado{
+
+    background-color: #ff1744;
+    color: black;
+    border-radius: 71px 69px 72px 71px;
+    -moz-border-radius: 71px 69px 72px 71px;
+    -webkit-border-radius: 71px 69px 72px 71px;
+}
+/* estado activo */
+markactivo{
+
+    background-color: #00FF00;
+    color: black;
+    border-radius: 71px 69px 72px 71px;
+    -moz-border-radius: 71px 69px 72px 71px;
+    -webkit-border-radius: 71px 69px 72px 71px;
+}
+/* estado pendiente */
+markpendiente{
+    background-color: #FFEE80;
+    color: black;
+    border-radius: 71px 69px 72px 71px;
+    -moz-border-radius: 71px 69px 72px 71px;
+    -webkit-border-radius: 71px 69px 72px 71px;
+}
+/* estado terminado */
+markTerminado{
+    background-color: darkseagreen;
+    color: black;
+    border-radius: 71px 69px 72px 71px;
+    -moz-border-radius: 71px 69px 72px 71px;
+    -webkit-border-radius: 71px 69px 72px 71px;
+}
+/* estado anulado*/
+markanulado{
+    background-color: #ff1744;
+    color: black;
+    border-radius: 71px 69px 72px 71px;
+    -moz-border-radius: 71px 69px 72px 71px;
+    -webkit-border-radius: 71px 69px 72px 71px;
+}

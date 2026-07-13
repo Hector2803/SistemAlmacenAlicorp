@@ -1,0 +1,401 @@
+.mt-50 {
+    margin-top: 10px
+}
+.mb-50 {
+    margin-bottom:80px
+}
+.provider-brand-logo {
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: 40px;
+    margin-left:15px;
+}
+
+div.DivLogos {
+    left: 1px !important;
+}
+
+.imglogos {
+    max-height: 100px !important;
+}
+
+.FormatLetraRazonEmisor {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    height: 13px !important;
+    margin-left: 155px !important;
+}
+
+.FormatLetraDirEmisor {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 10px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    margin-left: 155px !important;
+}
+
+/* ESTILO CUADRO DONDE SE ENCUENTRA RUC , TIPO DE DOCUMENTO Y NUMERO DE LA FACTURA*/
+
+div.DivInvoceCuadroCabecera {
+    height: 10px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    margin-right: 0px !important;
+}
+
+div.DivContentInvoceCuadroCabecera {
+    height: 83px !important;
+    border: solid #e2e2eb 2px !important;
+}
+
+h4.FormatInvoiceCuadroCabecera {
+    text-align: center !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+/* ESTILO DEL DETALLE DE LOS PROVEEDORES : SEÑOR , DIRECCION ,
+                 RUC, FECHA EMISION, MONEDA , VENCIMIENTO*/
+
+div.PositionProveedorInvoice2 {
+    right: 0px !important;
+}
+
+div.PositionProveedorInvoice6 {
+    right: 0px !important;
+}
+
+.FormatAlingProveedorInvoice {
+    font-weight: bold !important;
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 10px !important;
+    text-align: left;
+    height: 7px !important;
+}
+
+.FormatAlingProveedorInvoiceDetall {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    text-align: left;
+    height: 7px !important;
+}
+/* ESTILO PARA LA TABLA DETALLE DE LA FACTURA */
+
+div.DivDimenTablaDetalleProveedorInvoice {
+    bottom: -10px !important;
+    width: 96% !important;
+    margin-left: 14px;
+
+}
+
+.table-responsive,
+div.DivDimTableResponsiveProveedorInvoice {
+    /*  min-height: 50% !important;*/
+}
+
+th.BoderDimTableResponsiveProveedorInvoice {
+    border-right: 1px solid #999999 !important;
+    border-bottom: 1px solid #999999 !important;
+    border-top: 1px solid #999999 !important;
+
+}
+
+th.BoderDimTableResponsiveProveedorInvoiceCancel {
+    border-bottom: 1px solid #999999 !important;
+    border-top: 1px solid #999999 !important;
+}
+
+.panel-default,
+.PanelDefaultResponsive {
+    border-top: 1px solid #999999 !important;
+    border-right: 1px solid #999999 !important;
+    border-left: 1px solid #999999 !important;
+    border-bottom: 1px solid #999999 !important;
+}
+
+.FormatTableResponsiveDetallCabecera {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    font-size: 12px !important;
+}
+
+.FormatTableResponsiveDetallHijo1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px !important;
+    border-right: 1px solid #999999 !important;
+    width: 40% !important;
+    word-break: break-all;
+}
+
+.FormatTableResponsiveDetallHijo2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 12px !important;
+    text-align: center !important;
+}
+
+.FormatTableResponsiveDetallHijo3 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    border-right: 1px solid #999999 !important;
+    width: 6% !important;
+}
+
+.FormatTableResponsiveDetallHijo4 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    border-right: 1px solid #999999 !important;
+    width: 6% !important;
+}
+.FormatTableResponsiveDetallHijo5 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    width: 6% !important;
+}
+.table-condensed>tbody>tr>td,
+.table-condensed>tbody>tr>th,
+.table-condensed>tfoot>tr>td,
+.table-condensed>tfoot>tr>th,
+.table-condensed>thead>tr>td,
+.table-condensed>thead>tr>th,
+.table_Invoice_Detall {
+    padding: 0px !important;
+    line-height: none !important;
+    border-top: none !important;
+    margin: 0px;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel-default,
+.PanelDefaultResponsive {
+    border-top: 1px solid #999999 !important;
+    border-right: 1px solid #999999 !important;
+    border-left: 1px solid #999999 !important;
+    border-bottom: 1px solid #999999 !important;
+}
+
+.TrTableDeltalleProveedor:last-child {
+    height: 63% !important;
+}
+
+/* ESTILO DETALLE MONTOS */
+div.DivDimDetalleMontoInvoiceLetra {
+    right: 0.5% !important;
+}
+
+.FormatDetalleMontoInvoiceLetra {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px !important;
+    text-indent: 10px !important;
+    text-align: left !important;
+}
+
+.FormatTablePieMontoInvoiceLetra1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px !important;
+    text-indent: 10px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+}
+
+.EstiloPanelDetalleDenominacionMontoInvoice {
+    border-bottom: 1px solid #272525 !important;
+    border-top: 0px solid #272525 !important;
+    border-left: 1px solid #272525 !important;
+    border-right: 1px solid #272525 !important;
+}
+
+div.DivDimTablaDetalleMontoInvoice {
+    width: 0% !important;
+    left: 0px !important;
+}
+
+.EstiloTablaDetalleMontoInvoice th,
+.EstiloTablaDetalleMontoInvoice td,
+table.EstiloTablaDetalleMontoInvoice {
+    border-bottom: 1px solid #272525 !important;
+    border-top: 1px solid #272525 !important;
+    border-left: 1px solid #272525 !important;
+    border-right: 1px solid #272525 !important;
+}
+
+.FormatTablaDetalleMontoInvoice1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    text-align: left !important;
+    padding-left: 0px !important
+}
+
+.FormatTablaDetalleMontoInvoice2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
+    font-size: 12px !important;
+    text-indent: 10px !important;
+    text-align: center !important;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .1875rem
+}
+
+.card-img-actions {
+    position: relative
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    text-align: center
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 17px
+}
+
+.invoice-color {
+    color: red !important
+}
+
+.card-header {
+    padding: .9375rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .02);
+    border-bottom: 1px solid rgba(0, 0, 0, .125)
+}
+
+a {
+    text-decoration: none !important
+}
+
+.btn-light {
+    color: #333;
+    background-color: #fafafa;
+    border-color: #ddd
+}
+
+.header-elements-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap
+}
+
+@media (min-width: 768px) {
+    .wmin-md-400 {
+        min-width: 150px !important
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #2196f3
+}
+
+.btn-labeled>b {
+    position: absolute;
+    top: -1px;
+    background-color: blue;
+    display: block;
+    line-height: 1;
+    padding: .62503rem
+}
+
+
+
+.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,
+.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,
+.col-xs-8,.col-xs-9{
+    float:left
+}
+.col-xs-12{
+    width:100%
+}
+.col-xs-11{
+    width:91.66666667%
+}
+.col-xs-10{
+    width:83.33333333%
+}
+.col-xs-9{
+    width:75%
+}
+.col-xs-8{
+    width:66.66666667%
+}
+.col-xs-7{
+    width:60.33333333%
+}
+.col-xs-6{
+    width:50%
+}
+.col-xs-5{
+    width:50%
+}
+.col-xs-4{
+    width:28.33333333%
+}
+.col-xs-3{
+    width:25%
+}
+.col-xs-2{
+    width:16.66666667%
+}
+.col-xs-1{
+    width:11.33333333%
+}
+.col-xs-pull-12{
+    right:100%
+}
+.col-xs-pull-11{
+    right:91.66666667%
+}
+.col-xs-pull-10{
+    right:83.33333333%
+}
+.col-xs-pull-9{
+    right:75%
+}
+.panel1{
+    margin-bottom:20px;
+    background-color:#ebedf1e8;
+    border:1px solid transparent;
+    border-radius:6px;
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+    box-shadow:0 1px 1px rgba(0,0,0,.05)
+}
+.panel{
+    margin-bottom:20px;
+    background-color:#fff;
+    border:1px solid transparent;
+    border-radius:4px;
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+    box-shadow:0 1px 1px rgba(0,0,0,.05)
+}
+.panel-body{
+    padding:15px
+}
+.panel>.panel-collapse>.table,.panel>.table,.panel>.table-responsive>.table{
+    margin-bottom:0
+}
