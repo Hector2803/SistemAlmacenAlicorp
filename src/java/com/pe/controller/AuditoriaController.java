@@ -29,11 +29,25 @@ public class AuditoriaController extends HttpServlet {
         }
 
         String filtroUsuario = request.getParameter("usuario");
-        String filtroModulo = request.getParameter("modulo");
+        String filtroRol = request.getParameter("rol");
+        String fechaDesde = request.getParameter("fechaDesde");
+        String fechaHasta = request.getParameter("fechaHasta");
+        // Marcador enviado únicamente por el botón "Filtrar".
+        // Si no viene (al entrar a la ventana), NO se consulta la base de datos.
+        boolean busquedaRealizada = (request.getParameter("buscar") != null);
 
-        request.setAttribute("registros", auditDAO.filtrar(filtroUsuario, filtroModulo, 300));
+        if (busquedaRealizada) {
+            request.setAttribute("registros",
+                    auditDAO.filtrarAvanzado(filtroUsuario, filtroRol, fechaDesde, fechaHasta, 300));
+        } else {
+            request.setAttribute("registros", new java.util.ArrayList<com.pe.model.entity.Auditoria>());
+        }
+
+        request.setAttribute("busquedaRealizada", busquedaRealizada);
         request.setAttribute("filtroUsuario", filtroUsuario);
-        request.setAttribute("filtroModulo", filtroModulo);
+        request.setAttribute("filtroRol", filtroRol);
+        request.setAttribute("fechaDesde", fechaDesde);
+        request.setAttribute("fechaHasta", fechaHasta);
 
         request.getRequestDispatcher("Auditoria.jsp").forward(request, response);
     }

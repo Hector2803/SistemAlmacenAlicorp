@@ -95,6 +95,57 @@ public class AuditoriaDAO {
         return lista;
     }
 
+    // NUEVO: filtra por usuario, rol (uniendo con la tabla usuario), y rango de fechas.
+    // Cualquier parámetro vacío/nulo simplemente no se aplica.
+    public List<Auditoria> filtrarAvanzado(String usuario, String rol, String fechaDesde, String fechaHasta, int cantidad) {
+        List<Auditoria> lista = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(
+                "SELECT a.id, a.usuario, a.accion, a.modulo, a.detalle, a.fecha_hora "
+                + "FROM auditoria a LEFT JOIN usuario u ON a.usuario = u.email WHERE 1=1");
+        boolean fUsuario = usuario != null && !usuario.trim().isEmpty();
+        boolean fRol = rol != null && !rol.trim().isEmpty();
+        boolean fDesde = fechaDesde != null && !fechaDesde.trim().isEmpty();
+        boolean fHasta = fechaHasta != null && !fechaHasta.trim().isEmpty();
+        if (fUsuario) {
+            sql.append(" AND a.usuario LIKE ?");
+        }
+        if (fRol) {
+            sql.append(" AND u.rol = ?");
+        }
+        if (fDesde) {
+            sql.append(" AND DATE(a.fecha_hora) >= ?");
+        }
+        if (fHasta) {
+            sql.append(" AND DATE(a.fecha_hora) <= ?");
+        }
+        sql.append(" ORDER BY a.fecha_hora DESC LIMIT ?");
+        try {
+            Connection con = cn.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql.toString());
+            int idx = 1;
+            if (fUsuario) {
+                ps.setString(idx++, "%" + usuario.trim() + "%");
+            }
+            if (fRol) {
+                ps.setString(idx++, rol.trim());
+            }
+            if (fDesde) {
+                ps.setString(idx++, fechaDesde.trim());
+            }
+            if (fHasta) {
+                ps.setString(idx++, fechaHasta.trim());
+            }
+            ps.setInt(idx, cantidad);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(mapear(rs));
+            }
+        } catch (Exception e) {
+            System.err.println("No se pudo filtrar la auditoría: " + e.getMessage());
+        }
+        return lista;
+    }
+
     private Auditoria mapear(ResultSet rs) throws Exception {
         Auditoria a = new Auditoria();
         a.setId(rs.getInt("id"));

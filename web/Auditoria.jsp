@@ -38,19 +38,24 @@
                             <form class="filtro-box" action="AuditoriaController" method="GET">
                                 <input type="text" name="usuario" placeholder="Buscar por usuario..."
                                        value="<%= request.getAttribute("filtroUsuario") != null ? request.getAttribute("filtroUsuario") : "" %>">
-                                <select name="modulo">
-                                    <option value="">-- Todos los m&oacute;dulos --</option>
+                                <label style="align-self:center; font-size:12px; color:#666; margin:0 2px 0 8px;">Desde</label>
+                                <input type="date" name="fechaDesde" title="Fecha desde"
+                                       value="<%= request.getAttribute("fechaDesde") != null ? request.getAttribute("fechaDesde") : "" %>">
+                                <label style="align-self:center; font-size:12px; color:#666; margin:0 2px 0 8px;">Hasta</label>
+                                <input type="date" name="fechaHasta" title="Fecha hasta"
+                                       value="<%= request.getAttribute("fechaHasta") != null ? request.getAttribute("fechaHasta") : "" %>">
+                                <select name="rol">
+                                    <option value="">-- Todos los roles --</option>
                                     <%
-                                        String[] modulos = {"Auth", "Usuarios", "Productos", "Log&iacute;stica", "Compras", "Configuraci&oacute;n"};
-                                        String[] modulosValor = {"Auth", "Usuarios", "Productos", "Logistica", "Compras", "Configuracion"};
-                                        String modActual = (String) request.getAttribute("filtroModulo");
-                                        for (int i = 0; i < modulosValor.length; i++) {
-                                            String sel = modulosValor[i].equals(modActual) ? "selected" : "";
+                                        String[] roles = {"Administrador", "Logistico", "Supervisor"};
+                                        String rolActual = (String) request.getAttribute("filtroRol");
+                                        for (String r : roles) {
+                                            String selR = r.equals(rolActual) ? "selected" : "";
                                     %>
-                                    <option value="<%=modulosValor[i]%>" <%=sel%>><%=modulos[i]%></option>
+                                    <option value="<%=r%>" <%=selR%>><%=r%></option>
                                     <% } %>
                                 </select>
-                                <button type="submit"><i class="fas fa-search"></i> Filtrar</button>
+                                <button type="submit" name="buscar" value="1"><i class="fas fa-search"></i> Filtrar</button>
                                 <a href="AuditoriaController" style="align-self:center; font-size:13px; color:#666; text-decoration:none;">Limpiar filtro</a>
                             </form>
                         </div>
@@ -61,6 +66,18 @@
                             <h3 class="card-title" style="color:#1a1f2e; font-size:14px; font-weight:600;"><i class="fas fa-list" style="color:#C8102E;margin-right:6px;"></i>Registro de Actividad</h3>
                         </div>
                         <div class="card-body" style="padding:20px;">
+                            <%
+                                boolean busquedaRealizada = Boolean.TRUE.equals(request.getAttribute("busquedaRealizada"));
+                                if (!busquedaRealizada) {
+                            %>
+                            <div style="text-align:center; padding:45px 20px; color:#888;">
+                                <i class="fas fa-filter" style="font-size:40px; color:#d5d5d5; margin-bottom:14px;"></i>
+                                <p style="font-size:15px; margin:0; color:#555;">Aplica un filtro y presiona <b style="color:#C8102E;">Filtrar</b> para consultar el registro de auditor&iacute;a.</p>
+                                <p style="font-size:13px; margin:6px 0 0; color:#999;">No se muestra informaci&oacute;n hasta realizar una b&uacute;squeda.</p>
+                            </div>
+                            <%
+                                } else {
+                            %>
                             <table id="example" class="table table-striped table-bordered auditoria-table" style="width:100%">
                                 <thead>
                                     <tr>
@@ -87,6 +104,7 @@
                                     <% } } %>
                                 </tbody>
                             </table>
+                            <% } %>
                         </div>
                     </div>
                 </div>
