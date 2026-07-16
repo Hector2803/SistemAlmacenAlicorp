@@ -274,13 +274,25 @@
                         <div class="col-lg-3 col-6 mb-3">
                             <%
                                 DashboardDAO valInv = new DashboardDAO();
-                                String valorInventario = valInv.Valorinventario();
+                                String valorInventarioRaw = valInv.Valorinventario();
+                                // Se formatea a 2 decimales con separador de miles (ej. 16,883.70)
+                                String valorInventario = "0.00";
+                                try {
+                                    if (valorInventarioRaw != null && !valorInventarioRaw.trim().isEmpty()) {
+                                        double valNum = Double.parseDouble(valorInventarioRaw.trim());
+                                        java.text.DecimalFormat df = new java.text.DecimalFormat(
+                                                "#,##0.00", new java.text.DecimalFormatSymbols(java.util.Locale.US));
+                                        valorInventario = df.format(valNum);
+                                    }
+                                } catch (NumberFormatException ex) {
+                                    valorInventario = valorInventarioRaw;
+                                }
                             %>
                             <a href="Producto.jsp" class="kpi-card kpi-green">
                                 <i class="fas fa-warehouse kpi-icon-bg"></i>
                                 <div>
                                     <p class="kpi-label">Valor de Inventario (S/)</p>
-                                    <h3 class="kpi-number">S/ <%= valorInventario != null ? valorInventario : "0.00" %></h3>
+                                    <h3 class="kpi-number">S/ <%= valorInventario %></h3>
                                 </div>
                                 <div class="kpi-footer">M&aacute;s informaci&oacute;n <i class="fas fa-arrow-circle-right"></i></div>
                             </a>
