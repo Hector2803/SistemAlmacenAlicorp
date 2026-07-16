@@ -58,11 +58,18 @@
                                        String numserie = com.Numserie(); %>
                                     <div class="mb-3">
                                         <label class="form-label">C&oacute;digo</label>
-                                        <input class="form-ali" type="text" name="Txtcodigo" value="<%=numserie%>" readonly>
+                                        <input class="form-ali" id="Txtcodigo" type="text" name="Txtcodigo" value="<%=numserie%>" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Descripci&oacute;n</label>
-                                        <input type="text" name="Txtdescripcion" class="form-ali" placeholder="Ej: Aceite Primor Botella 1L" required>
+                                        <div style="display:flex; gap:8px;">
+                                            <input type="text" id="Txtdescripcion" name="Txtdescripcion" class="form-ali" placeholder="Ej: Aceite Primor Botella 1L" oninput="resetValidacionProducto()" required>
+                                            <button type="button" onclick="validarProducto()" class="btn"
+                                                    style="white-space:nowrap; background:#1a1f2e; color:#fff; border:none; border-radius:8px; padding:0 16px; font-size:13px; font-weight:500;">
+                                                <i class="fas fa-check-circle"></i> Validar
+                                            </button>
+                                        </div>
+                                        <div id="msgValidacion" style="font-size:12.5px; margin-top:6px; display:none;"></div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Clasificaci&oacute;n</label>
@@ -167,7 +174,7 @@
                             <a href="Producto.jsp" style="background:#f0f0f0;color:#555;border:none;border-radius:8px;padding:11px 22px;font-size:13.5px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
                                 <i class="fas fa-times"></i> Cancelar
                             </a>
-                            <button onclick="return validarnewproductos()" type="submit" class="btn" name="accion" style="background:#C8102E;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13.5px;font-weight:500;">
+                            <button id="btnGuardar" onclick="return puedeGuardar()" type="submit" class="btn" name="accion" style="background:#C8102E;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:13.5px;font-weight:500;">
                                 <i class="fas fa-save"></i> Guardar Producto
                             </button>
                         </div>
@@ -195,6 +202,71 @@
                 selSub.value = '';
             }
             document.getElementById('selCategoria').addEventListener('change', filtrarSubcategorias);
+        </script>
+        <script>
+            // Estado de validación del producto: null = sin validar, 'nuevo', 'existe'
+            var estadoValidacion = null;
+            var codigoExistente = null;
+            var codigoGenerado = document.getElementById('Txtcodigo').value; // el correlativo que asignó el sistema
+
+            function resetValidacionProducto() {
+                estadoValidacion = null;
+                codigoExistente = null;
+                document.getElementById('Txtcodigo').value = codigoGenerado;
+                var m = document.getElementById('msgValidacion');
+                m.style.display = 'none';
+                m.innerHTML = '';
+            }
+
+            function validarProducto() {
+                var desc = document.getElementById('Txtdescripcion').value.trim();
+                var m = document.getElementById('msgValidacion');
+                if (desc === '') {
+                    swal("Escribe primero la descripción del producto", {icon: "warning"});
+                    return;
+                }
+                fetch('ProductoController?accion=validarNombre&descripcion=' + encodeURIComponent(desc))
+                    .then(function (r) { return r.text(); })
+                    .then(function (res) {
+                        res = res.trim();
+                        m.style.display = 'block';
+                        if (res === 'NUEVO') {
+                            estadoValidacion = 'nuevo';
+                            codigoExistente = null;
+                            document.getElementById('Txtcodigo').value = codigoGenerado;
+                            m.style.color = '#2E7D46';
+                            m.innerHTML = '<i class="fas fa-check-circle"></i> Producto nuevo. Se asignará el código <b>' + codigoGenerado + '</b>.';
+                        } else {
+                            estadoValidacion = 'existe';
+                            codigoExistente = res;
+                            document.getElementById('Txtcodigo').value = res;
+                            m.style.color = '#C8102E';
+                            m.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Este producto ya está registrado con el código <b>' + res + '</b>. No se puede duplicar; para agregar stock usa <b>Nota de Ingreso</b>.';
+                        }
+                    })
+                    .catch(function () {
+                        m.style.display = 'block';
+                        m.style.color = '#C8102E';
+                        m.innerHTML = 'No se pudo validar. Intenta de nuevo.';
+                    });
+            }
+
+            // Reemplaza el guardado: obliga a validar antes y bloquea duplicados.
+            function puedeGuardar() {
+                if (estadoValidacion === null) {
+                    swal("Primero presiona «Validar» para comprobar el producto", {icon: "warning"});
+                    return false;
+                }
+                if (estadoValidacion === 'existe') {
+                    swal({
+                        title: "Producto ya registrado",
+                        text: "Ya existe con el código " + codigoExistente + ". No se puede duplicar. Para agregar stock usa Nota de Ingreso.",
+                        icon: "info"
+                    });
+                    return false;
+                }
+                return true; // 'nuevo' → los campos required validan el resto
+            }
         </script>
     </body>
 </html>

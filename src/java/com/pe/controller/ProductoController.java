@@ -27,6 +27,17 @@ public class ProductoController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
+
+        // NUEVO: validación AJAX del producto por nombre (botón "Validar producto").
+        // Devuelve el código existente si ya está registrado, o "NUEVO" si no existe.
+        if ("validarNombre".equals(accion)) {
+            String desc = request.getParameter("descripcion");
+            String cod = new com.pe.DAO.ProductoDAO().buscarCodigoPorNombre(desc);
+            response.setContentType("text/plain;charset=UTF-8");
+            response.getWriter().print(cod != null ? cod : "NUEVO");
+            return;
+        }
+
         if (accion.equals("add")) {
             this.add(request, response);
         }

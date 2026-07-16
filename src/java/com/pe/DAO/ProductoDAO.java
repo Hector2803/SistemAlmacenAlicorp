@@ -438,6 +438,25 @@ public class ProductoDAO{
 
     }
 
+    // NUEVO: devuelve el Código de un producto ya registrado con ese nombre (Descripcion),
+    // sin importar mayúsculas ni espacios. Devuelve null si no existe. Usa PreparedStatement.
+    public String buscarCodigoPorNombre(String descripcion) {
+        String codigo = null;
+        String sql = "SELECT Codigo FROM producto WHERE LOWER(TRIM(Descripcion)) = LOWER(TRIM(?)) LIMIT 1";
+        try {
+            Connection conn = cn.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, descripcion != null ? descripcion : "");
+            ResultSet r = ps.executeQuery();
+            if (r.next()) {
+                codigo = r.getString("Codigo");
+            }
+        } catch (Exception e) {
+            System.err.println("Error validando producto por nombre: " + e.getMessage());
+        }
+        return codigo;
+    }
+
     //Mostrar nombre de categoria en Producto.jsp
     public static String getNombreprovedor(int cod) {
         try {
