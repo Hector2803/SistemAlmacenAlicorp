@@ -36,8 +36,48 @@ public class RecuperarPasswordController extends HttpServlet {
             solicitarToken(request, response);
         } else if ("restablecer".equals(accion)) {
             restablecerPassword(request, response);
+        } else if ("cambioObligatorio".equals(accion)) {
+            cambioObligatorio(request, response);
         } else {
             request.getRequestDispatcher("RecuperarPassword.jsp").forward(request, response);
+        }
+    }
+
+    // NUEVO: procesa el cambio de contraseña OBLIGATORIO tras un restablecimiento
+    // hecho por el administrador. El id del usuario proviene de la sesión temporal
+    // creada en LoginController (idCambioPass); por eso no puede ejecutarse sin haber
+    // pasado antes por el login con la contraseña temporal.
+    private void cambioObligatorio(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        javax.servlet.http.HttpSession sesion = request.getSession(false);
+        Object idObj = (sesion != null) ? sesion.getAttribute("idCambioPass") : null;
+        if (idObj == null) {
+            response.getWriter().print("sesion_invalida");
+            return;
+        }
+        int id = (Integer) idObj;
+        String nueva = request.getParameter("txtNuevaPassword");
+        String confirmar = request.getParameter("txtConfirmarPassword");
+
+        if (nueva == null || confirmar == null || !nueva.equals(confirmar)) {
+            response.getWriter().print("password_no_coincide");
+            return;
+        }
+        if (!ValidacionUtil.esPasswordSegura(nueva)) {
+            response.getWriter().print("password_corta");
+            return;
+        }
+        if (usuarioDao.cambiarPasswordObligatorio(id, nueva)) {
+            Object email = sesion.getAttribute("emailCambioPass");
+            new com.pe.DAO.AuditoriaDAO().registrar(
+                    email != null ? email.toString() : "",
+                    "Cambio de contraseña obligatorio realizado", "Auth",
+                    "El usuario definió una nueva contraseña tras el restablecimiento del administrador");
+            sesion.removeAttribute("idCambioPass");
+            sesion.removeAttribute("emailCambioPass");
+            response.getWriter().print("ok");
+        } else {
+            response.getWriter().print("error");
         }
     }
 

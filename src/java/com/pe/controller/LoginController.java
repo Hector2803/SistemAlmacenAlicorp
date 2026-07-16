@@ -69,6 +69,18 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("mensaje", "<p style='color:red'>Correo o contrase&ntilde;a incorrectos</p>");
                     rd = request.getRequestDispatcher("login.jsp");
                 } else {
+                    // NUEVO: si el administrador restableció la clave, el usuario
+                    // debe cambiarla obligatoriamente antes de entrar al sistema.
+                    if (o.debeCambiarPassword(resultado)) {
+                        logDAO.registrar(usuario, true, ip, "Ingreso con contraseña temporal: se exige cambio obligatorio");
+                        new com.pe.DAO.AuditoriaDAO().registrar(usuario, "Cambio de contraseña obligatorio", "Auth",
+                                "Ingreso con clave temporal desde " + ip);
+                        javax.servlet.http.HttpSession s = request.getSession();
+                        s.setAttribute("idCambioPass", resultado);
+                        s.setAttribute("emailCambioPass", usuario);
+                        response.sendRedirect("CambiarPasswordObligatorio.jsp");
+                        return;
+                    }
                     tipo = CBD.Validar(usuario, password);
                     logDAO.registrar(usuario, true, ip, "Login correcto (" + tipo + ")");
                     new com.pe.DAO.AuditoriaDAO().registrar(usuario, "Inicio de sesión", "Auth", "Login exitoso desde " + ip);

@@ -329,12 +329,51 @@ public class UsuarioDAO {
         try {
             String hash = PasswordUtil.hashPassword(passwordPlanoNueva);
             con = cn.getConnection();
-            PreparedStatement pst = con.prepareStatement("UPDATE usuario SET password = ? WHERE id = ?");
+            // Se marca debe_cambiar_password = 1: la clave es temporal y el
+            // usuario deberá cambiarla obligatoriamente en su próximo ingreso.
+            PreparedStatement pst = con.prepareStatement(
+                    "UPDATE usuario SET password = ?, debe_cambiar_password = 1 WHERE id = ?");
             pst.setString(1, hash);
             pst.setInt(2, id);
             return pst.executeUpdate() == 1;
         } catch (Exception e) {
             System.err.println("No se pudo restablecer la contraseña: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // NUEVO: indica si el usuario está obligado a cambiar su contraseña
+    // (porque el administrador se la restableció con una clave temporal).
+    public boolean debeCambiarPassword(int id) {
+        String sql = "SELECT debe_cambiar_password FROM usuario WHERE id = ?";
+        try {
+            con = cn.getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet r = pst.executeQuery();
+            if (r.next()) {
+                return r.getInt("debe_cambiar_password") == 1;
+            }
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error verificando cambio obligatorio: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // NUEVO: el propio usuario define su nueva contraseña y se apaga la
+    // marca de cambio obligatorio, permitiéndole ya ingresar al sistema.
+    public boolean cambiarPasswordObligatorio(int id, String nuevaPasswordPlano) {
+        try {
+            String hash = PasswordUtil.hashPassword(nuevaPasswordPlano);
+            con = cn.getConnection();
+            PreparedStatement pst = con.prepareStatement(
+                    "UPDATE usuario SET password = ?, debe_cambiar_password = 0 WHERE id = ?");
+            pst.setString(1, hash);
+            pst.setInt(2, id);
+            return pst.executeUpdate() == 1;
+        } catch (Exception e) {
+            System.err.println("No se pudo cambiar la contraseña obligatoria: " + e.getMessage());
             return false;
         }
     }
